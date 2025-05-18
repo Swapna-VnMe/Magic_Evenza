@@ -21,6 +21,7 @@ $result = mysqli_query($conn, $query);
     <title>Admin - View Contact Messages</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet" />
+    <link href="https://cdn.datatables.net/1.13.4/css/dataTables.bootstrap5.min.css" rel="stylesheet" />
     <style>
         body {
             background: #f0f2f5;
@@ -28,7 +29,6 @@ $result = mysqli_query($conn, $query);
             min-height: 100vh;
             display: flex;
             flex-direction: column;
-            padding: 40px 15px;
         }
 
         .container {
@@ -69,48 +69,6 @@ $result = mysqli_query($conn, $query);
             text-decoration: none;
         }
 
-        table {
-            border-collapse: separate !important;
-            border-spacing: 0 12px !important;
-            font-size: 0.95rem;
-        }
-
-        thead tr th {
-            background-color: #5e35b1;
-            color: white;
-            font-weight: 600;
-            border: none !important;
-            padding: 15px 12px;
-            border-radius: 10px;
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-        }
-
-        tbody tr {
-            background-color: #fafafa;
-            box-shadow: 0 2px 8px rgb(0 0 0 / 0.05);
-            transition: background-color 0.3s ease;
-            border-radius: 10px;
-        }
-        tbody tr:hover {
-            background-color: #ede7f6;
-        }
-
-        tbody tr td {
-            vertical-align: middle;
-            padding: 15px 12px;
-            border: none !important;
-            color: #333;
-        }
-
-        tbody tr td:nth-child(5) {
-            white-space: pre-wrap; /* preserve line breaks in message */
-            max-width: 350px;
-            text-align: left;
-            font-style: italic;
-            color: #555;
-        }
-
         .btn-danger {
             font-size: 0.9rem;
             padding: 5px 12px;
@@ -127,18 +85,55 @@ $result = mysqli_query($conn, $query);
             text-align: center !important;
         }
 
-        /* Responsive tweaks */
         @media (max-width: 768px) {
             .container {
                 padding: 20px 15px;
             }
-            tbody tr td:nth-child(5) {
-                max-width: 200px;
-            }
+        }
+
+        .navbar {
+            background-color: #343a40;
+            color: white;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.5rem 1rem;
+        }
+        .navbar-brand {
+            color: white;
+            display: flex;
+            align-items: center;
+        }
+        .navbar-toggler {
+            border: none;
+            font-size: 1.25rem;
+            color: white;
+            margin-right: 1rem;
+        }
+        .admin-btn {
+            color: white;
+            text-decoration: none;
+            border: 1px solid #fff;
+            padding: 5px 12px;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            transition: background-color 0.3s;
+        }
+        .admin-btn:hover {
+            background-color: #495057;
         }
     </style>
 </head>
 <body>
+<nav class="navbar navbar-dark">
+    <div class="d-flex align-items-center">
+        <button class="navbar-toggler" id="toggleSidebar">
+            <i class="fas fa-bars"></i>
+        </button>
+        <span class="navbar-brand mb-0 ms-2 h1">Magic Evenza</span>
+    </div>
+    <a href="admin_details.php" class="admin-btn"><i class="fas fa-user-shield me-1"></i>Admin Details</a>
+</nav>
 
 <div class="container">
     <a href="admin.php" class="back-btn">
@@ -146,9 +141,10 @@ $result = mysqli_query($conn, $query);
     </a>
 
     <h3>Submitted Contact Messages</h3>
+
     <div class="table-responsive">
-        <table class="table align-middle">
-            <thead>
+        <table class="table table-bordered table-striped align-middle" id="messagesTable">
+            <thead class="table-dark">
                 <tr>
                     <th>#</th>
                     <th>Name</th>
@@ -161,14 +157,15 @@ $result = mysqli_query($conn, $query);
             </thead>
             <tbody>
                 <?php if (mysqli_num_rows($result) > 0): ?>
+                    <?php $count = 1; ?>
                     <?php while ($row = mysqli_fetch_assoc($result)): ?>
                         <tr>
-                            <td class="text-center"><?= $row['id']; ?></td>
+                            <td class="text-center"><?= $count++; ?></td>
                             <td><?= htmlspecialchars($row['name']); ?></td>
                             <td><?= htmlspecialchars($row['email']); ?></td>
                             <td><?= htmlspecialchars($row['phone']); ?></td>
-                            <td><?= htmlspecialchars($row['message']); ?></td>
-                            <td class="text-center"><?= $row['submitted_at']; ?></td>
+                            <td><?= nl2br(htmlspecialchars($row['message'])); ?></td>
+                            <td class="text-center"><?= date("d M Y, h:i A", strtotime($row['submitted_at'])); ?></td>
                             <td class="text-center">
                                 <form method="POST" onsubmit="return confirm('Are you sure you want to delete this message?');" style="margin:0;">
                                     <input type="hidden" name="delete_id" value="<?= $row['id']; ?>" />
@@ -189,8 +186,16 @@ $result = mysqli_query($conn, $query);
     </div>
 </div>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/js/all.min.js"></script>
+<!-- Scripts -->
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.13.4/js/dataTables.bootstrap5.min.js"></script>
+<script>
+    $(document).ready(function() {
+        $('#messagesTable').DataTable();
+    });
+</script>
 
 </body>
 </html>

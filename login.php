@@ -27,18 +27,6 @@ $result = mysqli_query($conn, "SELECT * FROM users WHERE username='$username'");
     }
   }
 
-
-
-
-
-
-
-
-
-
-
-
-
 ?>
 <!doctype html>
 <html lang="en">

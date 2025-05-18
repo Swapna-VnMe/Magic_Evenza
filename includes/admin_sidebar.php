@@ -1,19 +1,4 @@
-<?php  
-include 'db_connection.php';
-session_start();
 
-if (!isset($_SESSION['admin_logged_in'])) {
-    header("Location: admin_login.php");
-    exit();
-}
-
-$venue_count = mysqli_fetch_assoc(mysqli_query($conn, "SELECT COUNT(*) AS count FROM venues"))['count'];
-$event_count = mysqli_fetch_assoc(mysqli_query($conn, "SELECT COUNT(*) AS count FROM events"))['count'];
-$submission_count = mysqli_fetch_assoc(mysqli_query($conn, "SELECT COUNT(*) AS count FROM subscribers"))['count'];
-$message_count = mysqli_fetch_assoc(mysqli_query($conn, "SELECT COUNT(*) AS count FROM contact_messages"))['count'];
-$package_count = mysqli_fetch_assoc(mysqli_query($conn, "SELECT COUNT(*) AS count FROM event_types"))['count'];
-$image_count = mysqli_fetch_assoc(mysqli_query($conn, "SELECT COUNT(*) AS count FROM gallery"))['count'];
-?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -137,65 +122,10 @@ $image_count = mysqli_fetch_assoc(mysqli_query($conn, "SELECT COUNT(*) AS count 
         <a href="venue.php"><i class="fas fa-map-marker-alt"></i> Manage Venues</a>
         <a href="view_submissions.php"><i class="fas fa-users"></i> Manage Subscriptions</a>
         <a href="view_messages.php"><i class="fas fa-envelope"></i> Manage Messages</a>
-        <a href="admin_logout.php"><i class="fas fa-sign-out-alt"></i> Logout</a>
+        <a href="logout.php"><i class="fas fa-sign-out-alt"></i> Logout</a>
     </div>
 
-    <!-- Main Content -->
-    <div class="content">
-        <h2 class="mb-3">Welcome to the Dashboard</h2>
-        <p class="text-muted mb-4">Here’s a quick summary of your website’s activity.</p>
 
-        <div class="row g-4">
-            <div class="col-md-4">
-                <div class="card text-bg-primary">
-                    <div class="card-body">
-                        <h5 class="card-title">Venues</h5>
-                        <p class="card-text display-6"><?= $venue_count ?></p>
-                    </div>
-                </div>
-            </div>
-            <!-- <div class="col-md-4">
-                <div class="card text-bg-success">
-                    <div class="card-body">
-                        <h5 class="card-title">Events Completed</h5>
-                        <p class="card-text display-6"><?= $event_count ?></p>
-                    </div>
-                </div>
-            </div> -->
-            <div class="col-md-4">
-                <div class="card text-bg-warning">
-                    <div class="card-body">
-                        <h5 class="card-title">Subscriptions</h5>
-                        <p class="card-text display-6"><?= $submission_count ?></p>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-4">
-                <div class="card text-bg-danger">
-                    <div class="card-body">
-                        <h5 class="card-title">Messages</h5>
-                        <p class="card-text display-6"><?= $message_count ?></p>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-4">
-                <div class="card text-bg-info">
-                    <div class="card-body">
-                        <h5 class="card-title">Packages</h5>
-                        <p class="card-text display-6"><?= $package_count ?></p>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-4">
-                <div class="card text-bg-secondary">
-                    <div class="card-body">
-                        <h5 class="card-title">Gallery Images</h5>
-                        <p class="card-text display-6"><?= $image_count ?></p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
 </div>
 
 <!-- Sidebar Toggle Script -->

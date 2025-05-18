@@ -72,7 +72,7 @@ $venues = mysqli_query($conn, "SELECT * FROM venues ORDER BY id DESC");
     <style>
         body {
             background-color: #f8f9fa;
-            padding-top: 20px;
+            
             padding-bottom: 40px;
         }
         .back-btn-container {
@@ -87,12 +87,52 @@ $venues = mysqli_query($conn, "SELECT * FROM venues ORDER BY id DESC");
         textarea.form-control {
             resize: vertical;
         }
+             .navbar {
+            background-color: #343a40;
+            color: white;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.5rem 1rem;
+        }
+        .navbar-brand {
+            color: white;
+            display: flex;
+            align-items: center;
+        }
+        .navbar-toggler {
+            border: none;
+            font-size: 1.25rem;
+            color: white;
+            margin-right: 1rem;
+        }
+        .admin-btn {
+            color: white;
+            text-decoration: none;
+            border: 1px solid #fff;
+            padding: 5px 12px;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            transition: background-color 0.3s;
+        }
+        .admin-btn:hover {
+            background-color: #495057;
+        }
     </style>
 </head>
 <body>
+    <nav class="navbar navbar-dark">
+    <div class="d-flex align-items-center">
+        <button class="navbar-toggler" id="toggleSidebar">
+            <i class="fas fa-bars"></i>
+        </button>
+        <span class="navbar-brand mb-0 ms-2 h1">Magic Evenza</span>
+    </div>
+    <a href="admin_details.php" class="admin-btn"><i class="fas fa-user-shield me-1"></i>Admin Details</a>
+</nav>
 <div class="container">
     <!-- Back to Admin Button -->
-    <div class="back-btn-container">
+    <div class="back-btn-container mt-4">
         <a href="admin.php" class="btn btn-primary d-inline-flex align-items-center">
             <i class="fas fa-arrow-left me-2"></i> Back to Admin
         </a>

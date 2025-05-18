@@ -29,9 +29,52 @@ $result = mysqli_query($conn, "SELECT * FROM subscribers ORDER BY id DESC");
     <meta charset="UTF-8" />
     <title>Manage Subscribers</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet" />
+
+    <style>
+             .navbar {
+            background-color: #343a40;
+            color: white;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.5rem 1rem;
+        }
+        .navbar-brand {
+            color: white;
+            display: flex;
+            align-items: center;
+        }
+        .navbar-toggler {
+            border: none;
+            font-size: 1.25rem;
+            color: white;
+            margin-right: 1rem;
+        }
+        .admin-btn {
+            color: white;
+            text-decoration: none;
+            border: 1px solid #fff;
+            padding: 5px 12px;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            transition: background-color 0.3s;
+        }
+        .admin-btn:hover {
+            background-color: #495057;
+        }
+    </style>
 </head>
 <body>
-    
+    <nav class="navbar navbar-dark">
+    <div class="d-flex align-items-center">
+        <button class="navbar-toggler" id="toggleSidebar">
+            <i class="fas fa-bars"></i>
+        </button>
+        <span class="navbar-brand mb-0 ms-2 h1">Magic Evenza</span>
+    </div>
+    <a href="admin_details.php" class="admin-btn"><i class="fas fa-user-shield me-1"></i>Admin Details</a>
+</nav>
 <div class="container mt-4">
     <h2>Manage Subscribers</h2>
 

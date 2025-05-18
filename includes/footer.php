@@ -50,7 +50,6 @@
           <li><a href="events.php" class="text-light text-decoration-none">Events</a></li>
           <li><a href="about.php" class="text-light text-decoration-none">About</a></li>
           <li><a href="contact.php" class="text-light text-decoration-none">Contact</a></li>
-          <li><a href="admin_login.php" class="text-light text-decoration-none">Admin</a></li>
         </ul>
       </div>
 

@@ -27,10 +27,14 @@ $venues = mysqli_query($conn, "SELECT * FROM venues");
                         <?php if (!empty($venue['image'])): ?>
                             <img src="<?= htmlspecialchars($venue['image']) ?>" class="card-img-top" alt="Venue Image" style="max-height: 250px; object-fit: cover;">
                         <?php endif; ?>
-                        <div class="card-body">
+                        <div class="card-body d-flex flex-column">
                             <h5 class="card-title"><?= htmlspecialchars($venue['name']) ?></h5>
                             <p class="card-text"><strong>Location:</strong> <?= htmlspecialchars($venue['location']) ?></p>
                             <p class="card-text"><?= nl2br(htmlspecialchars($venue['description'])) ?></p>
+                            
+                            <!-- Book Venue Button -->
+<!-- Book Venue Button -->
+<a href="index.php" class="btn btn-primary mt-auto">Book Venue</a>
                         </div>
                     </div>
                 </div>
